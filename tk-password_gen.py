@@ -5,12 +5,12 @@ from tkinter import ttk
 from string import ascii_lowercase
 from string import ascii_uppercase
 from string import digits
+from string import punctuation
 from random import choice
 
 
 class Password:
     def __init__(self, master):
-        self.spec = "!@#$%^&*"
         master.title("Password generator")
         master.resizable(False, False)
         master.configure(background="#e1d8b9")
@@ -45,7 +45,7 @@ class Password:
         self.generate_button = ttk.Button(self.button_frame, text="Generate", command=self.generate_password_button)
         self.copy_button = ttk.Button(self.button_frame, text="Copy", command=self.copy_password)
 
-        self.length_input = IntVar(value=5)
+        self.length_input = IntVar(value=6)
 
         self.number_slider = Scale(master, variable=self.length_input, orient="horizontal", length=150, showvalue=0, command=self.generate_password_slider, background="#e1d8b9", foreground="#e1d8b9", activebackground="#e1d8b9", highlightbackground="#e1d8b9", highlightcolor="#e1d8b9")
         self.number_slider["from"] = 6
@@ -74,7 +74,7 @@ class Password:
         if self.nums_check.instate(["selected"]):
             pool += digits
         if self.special_check.instate(["selected"]):
-            pool += self.spec
+            pool += punctuation
         
         password = "".join([choice(pool) for _ in range(int(num))])
         self.password_label.config(text=password)
@@ -88,7 +88,7 @@ class Password:
         if self.nums_check.instate(["selected"]):
             pool += digits
         if self.special_check.instate(["selected"]):
-            pool += self.spec
+            pool += punctuation
         
         password = "".join([choice(pool) for _ in range(self.length_input.get())])
         self.password_label.config(text=password)
